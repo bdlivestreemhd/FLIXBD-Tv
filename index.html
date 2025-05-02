@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE IPTV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #111;
+            color: white;
+        }
+
+        header {
+            padding: 1rem;
+            background-color: #1e1e1e;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .search-bar input {
+            width: 80%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .player-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: #111;
+            margin-top: 1rem;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+        }
+
+        .channels-wrapper {
+            display: flex;
+            overflow-x: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            margin-top: 10px;
+            justify-content: flex-start;
+            direction: rtl;
+        }
+
+        .channel {
+            text-align: center;
+            background: #1c1c1c;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .channel:hover {
+            transform: scale(1.05);
+        }
+
+        .channel-logo {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .channel-name {
+            margin-top: 0.3rem;
+            font-size: 0.65rem;
+        }
+
+        footer {
+            background: #1e1e1e;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .active-users {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .marquee {
+            background: #222;
+            color: #00ff99;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-left 15s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        FREE IPTV
+    </header>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="𝘚𝘦𝘢𝘳𝘤𝘩 𝘊𝘩𝘢𝘯𝘯𝘦𝘭">
+    </div>
+
+    <div class="player-container" id="playerContainer">
+        <video id="videoPlayer" class="video-js vjs-default-skin" controls preload="auto"></video>
+    </div>
+
+    <div class="channels-wrapper" id="channelList">
+        
+		
+		<div class="channel" data-stream="http://kst.moonplex.net:8080/CH1/index.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2018/04/Anandatvupdate.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-dangal.akamaized.net/liveabr/playlist.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS8BT5Ptp2yNXRQA9WbrmCwABG-Ws7xpXkJA&usqp" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUer98_MuISuAPBvSmwEBuWbb3I6sndmlbo3vIFAVTlXOa0mqY0VA3VGw&s=10" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://amg00864-shemarooenterta-shemabollywood-ono-nlwbw.amagi.tv/playlist/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN3DAKShKGS38-s8fEgzRUuTstitUkvFVv8y9TK1IR3Huor7YLbQhdp2_u&s" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2018/04/Anandatvupdate.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://janya-rdcmovies.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/230a723f-867d-4fa3-b2d2-a622ba994cd2/main.m3u8">
+            <img src="https://jiotvimages.cdn.jio.com/dare_images/shows/300/-/2025-04-08/2504083054000.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-stream.utkalbongo.com/hls/livebanglatvstream.m3u8">
+            <img src="https://yt3.googleusercontent.com/2ULVq-GjSdw089IzHDlk-qmnjISdJxQheGe7M_K5Q-Hp8H3_XsCuxL9BEnb5hZeaGUiCerdtYw=s900-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-stream.utkalbongo.com/utkalbongo/stream10/hls/amarbangla.m3u8">
+            <img src="https://yt3.googleusercontent.com/2ULVq-GjSdw089IzHDlk-qmnjISdJxQheGe7M_K5Q-Hp8H3_XsCuxL9BEnb5hZeaGUiCerdtYw=s900-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-stream.utkalbongo.com/utkalbongo/stream2/hls/amarbanglatwolivestream.m3u8">
+            <img src="https://yt3.googleusercontent.com/2ULVq-GjSdw089IzHDlk-qmnjISdJxQheGe7M_K5Q-Hp8H3_XsCuxL9BEnb5hZeaGUiCerdtYw=s900-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-stream.utkalbongo.com/utkalbongo/stream7/hls/montvlivestream.m3u8">
+            <img src="https://yt3.googleusercontent.com/2ULVq-GjSdw089IzHDlk-qmnjISdJxQheGe7M_K5Q-Hp8H3_XsCuxL9BEnb5hZeaGUiCerdtYw=s900-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live.thebosstv.com:30443/dwlive/AAKAASH-AATH/playlist.m3u8">
+            <img src="https://www.indiantelevision.com/sites/default/files/styles/smartcrop_800x800/public/images/tv-images/2014/09/12/dfddsf.jpg?itok=eR5yp8mn" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToQ2KPjTwTMWxRwfFfiomQajZdGxyjnVDkEzXFw_aTiHOocaB5B-rqIxc&s=10" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2018/04/Anandatvupdate.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="http://kst.moonplex.net:8080/CH4/index.m3u8">
+            <img src="https://toffeelive.com/_next/image?url=https%3A%2F%2Fimages.toffeelive.com%2Fimages%2Fprogram%2F340%2Flogo%2F240x240%2Fmobile_logo_094417001655891123.png&w=256&q=75" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="http://smart.bengaldigital.live/Star-jalsha/index.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRATYEcQRHLfIyU7bBHpgnuIYzJXXEScKWO3Q&usqp=CAU" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="http://kst.moonplex.net:8080/CH3/index.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WH3DJZ4euFnLw0pfWderCs-5okBGvQPszg&usqp=CAU" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2018/04/Anandatvupdate.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/channel9hd.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2015/10/ch9-150x150.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/channels.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/08/chsbd.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/channeli-8-org.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2015/10/chi-150x150.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/dbcnews.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2017/01/dbc-news.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/deshtv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2022/12/DESH-TV1.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/discoverpakistan.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/09/discoverpakistan.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/ekattor.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2015/10/ekattors-150x150.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/Global-tv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2021/11/globaltv.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/globaltv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/08/ekhontv.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/mohonatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2016/02/mohona.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/movieplus.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2025/04/movieplus.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/mytv-up-off.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2015/12/mytv.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/moviebanglalink2.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2016/02/moviebangla.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/news21bd.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/11/news21.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/news24local.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2016/08/news24.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://iili.io/377WBXn.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/nrb-eu.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2016/08/nrb.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/alponatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2020/06/alponatv.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/satvoff5666.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://yt3.googleusercontent.com/HL5ttqw9g34gVINtqq3rCoAyofPFsJg98YkuNz-GB0V8J28HyqIpkjW76AcYNFBol6Nn6zjmDw=s900-c-k-c0x00ffffff-no-rj" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/bijoy00.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1qVC2jT065NJW1OHON1cf4ELY4fxu71lw5A&s" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/somoyt000011226615544544.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2016/02/somoynews.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/cha1.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/09/IMG_0459-2048x2048.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/nantv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2019/11/NAN-TV-Logo-02.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/musicbangla.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/08/ch5.jpg?x49520" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/cb24.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/01/CB24-PP-LOGO.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/biswabanglatv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2022/03/Logo-Still.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/b24c.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2023/01/b24c-1.jpeg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/eyetv.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2025/02/eye-tv-banglapx.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/musicbangla44.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://www.jagobd.com/wp-content/uploads/2024/12/musicbangla.jpg" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		<div class="channel" data-stream="https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/tracks-v1a1/mono.m3u8">
+            <img src="https://iili.io/377WBXn.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+		
+        <div class="channel" data-stream="https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA3)/variant.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPShH-i1fzH_GqWTCR8BQCl4Tbs1Eyf3gO_g&usqp=CAU" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="http://41.205.93.154/STARSPORTS1/index.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPShH-i1fzH_GqWTCR8BQCl4Tbs1Eyf3gO_g&usqp=CAU" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="http://125.209.88.166:45793/BRN/GeoSuper.stream/playlist.m3u8">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPShH-i1fzH_GqWTCR8BQCl4Tbs1Eyf3gO_g&usqp=CAU" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="http://125.209.88.166:45793/BRN/TenSports.stream/playlist.m3u8">
+            <img src="https://iili.io/31oTvNj.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+         </div>
+        <div class="channel" data-stream="http://125.209.88.166:45793/BRN/ArySports.stream/playlist.m3u8">
+            <img src="https://iili.io/31oTvNj.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="http://live.matribhumitv.com/matribhumi-sports/index.m3u8">
+            <img src="https://iili.io/31oTvNj.png" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="https://www.tbn24.com/api/video/4031_0.m3u8">
+            <img src="https://images.sftcdn.net/images/t_app-icon-m/p/2dbf973a-9104-4650-b692-85ee01391f77/922516642/t-sports-tv-logo" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="http://kst.moonplex.net:8080/CH2/index.m3u8">
+            <img src="https://images.sftcdn.net/images/t_app-icon-m/p/2dbf973a-9104-4650-b692-85ee01391f77/922516642/t-sports-tv-logo" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        <div class="channel" data-stream="https://live.tsports.com/mobile_hls/tsports_live_1/playlist.m3u8">
+            <img src="https://images.sftcdn.net/images/t_app-icon-m/p/2dbf973a-9104-4650-b692-85ee01391f77/922516642/t-sports-tv-logo" class="channel-logo" alt="TSports">
+            <div class="channel-name"></div>
+        </div>
+        
+        </div>
+    </div>
+
+
+    <script src="https://vjs.zencdn.net/7.10.2/video.js"></script>
+    <script>
+        const videoPlayer = videojs('videoPlayer', {
+            techOrder: ['html5'],
+            controls: true,
+            preload: 'auto',
+        });
+
+        document.querySelectorAll('.channel').forEach(channel => {
+            channel.addEventListener('click', function () {
+                const streamUrl = channel.getAttribute('data-stream');
+                videoPlayer.src({
+                    src: streamUrl,
+                    type: 'application/x-mpegURL'
+                });
+                videoPlayer.play();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.channel').forEach(channel => {
+                const name = channel.querySelector('.channel-name').textContent.toLowerCase();
+                channel.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
